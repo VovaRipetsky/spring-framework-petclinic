@@ -16,7 +16,7 @@ pipeline {
               	     stage('Build&Test WAR'){
                      agent { label 'master' }
                          steps{
-                    		sh 'mvn clean package'
+                    		sh 'mvn clean package -P MySQL'
                               }
                       }
                       stage('Deploy WAR'){
