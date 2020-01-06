@@ -7,8 +7,8 @@ pipeline {
              }
               stages{
              	                      
-                      stage('Clone Git WAR'){
-                  agent { label 'master' }
+                     stage('Clone Git WAR'){
+                     agent { label 'master' }
                     	steps{
                                git branch: 'master', url: 'https://github.com/VovaRipetsky/spring-framework-petclinic.git'
                              }
