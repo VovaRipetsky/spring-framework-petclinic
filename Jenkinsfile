@@ -32,6 +32,7 @@ pipeline {
                       agent { label 'docker_slave' }
                          steps{
                                 sh 'docker-compose -f /home/ubuntu/docker-composes/tomcat/docker-compose.yml up -d'
+                                sh 'docker-compose -f /home/ubuntu/docker-composes/tomcat/docker-compose.yml restart'
                               }
                       }
                       		
