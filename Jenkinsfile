@@ -23,7 +23,7 @@ pipeline {
                       agent { label 'master' }
                          steps{
                         sshagent(credentials : ['sshdocker']) {         
-                        sh 'scp -i /var/lib/jenkins/.ssh/id_rsa -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipe_mvn_war/target/*.war ubuntu@172.31.22.238:/home/ubuntu/docker-composes/tomcat'
+                        sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipe_mvn_war/target/*.war ubuntu@172.31.22.238:/home/ubuntu/docker-composes/tomcat'
 
                               }
                       }
