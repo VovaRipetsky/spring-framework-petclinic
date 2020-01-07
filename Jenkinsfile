@@ -21,9 +21,9 @@ pipeline {
                       }
                       
                       stage('Deploy WAR'){
-                      withCredentials([sshUserPrivateKey(credentialsId: "sshdocker", keyFileVariable: 'keyfile')]) {
                       agent { label 'master' }
                          steps{
+                       withCredentials([sshUserPrivateKey(credentialsId: "sshdocker", keyFileVariable: 'keyfile')]) {
                         sh 'scp -i ${keyfile} -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipe_mvn_war/target/*.war ubuntu@172.31.22.238:/home/ubuntu/docker-composes/tomcat'
 
                               }
