@@ -19,15 +19,16 @@ pipeline {
                     		sh 'mvn clean package -P MySQL'
                               }
                       }
+                      withCredentials([sshUserPrivateKey(credentialsId: "sshdocker", keyFileVariable: 'keyfile')]) {
                       stage('Deploy WAR'){
                       agent { label 'master' }
                          steps{
-                        sshagent(['sshdocker']) {         
-                        sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipe_mvn_war/target/*.war ubuntu@172.31.22.238:/home/ubuntu/docker-composes/tomcat'
+                        sh 'scp -i ${keyfile} -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipe_mvn_war/target/*.war ubuntu@172.31.22.238:/home/ubuntu/docker-composes/tomcat'
 
                               }
                       }
                       }
+   
                       
                       stage('DockerCompose'){
                       agent { label 'docker_slave' }
