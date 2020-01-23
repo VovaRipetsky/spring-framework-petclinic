@@ -1,0 +1,43 @@
+pipeline {
+        agent none
+        tools
+             {
+       		  git 'Default'
+       		  
+             }
+              stages{
+             	                      
+                     stage('Clone Git'){
+                     agent { label 'mavenProd' }
+                    	steps{
+                               git branch: 'master', url: 'https://github.com/VovaRipetsky/spring-framework-petclinic.git'
+                             }
+                      }
+              	     stage('Build&Test'){
+                     agent { label 'mavenProd' }
+                         steps{
+                    		sh 'mvn clean package -P MySQL'
+                              }
+                      }
+                      
+                      stage('Deploy WAR'){
+                      agent { label 'mavenProd' }
+                         steps{
+                       withCredentials([sshUserPrivateKey(credentialsId: "sshkey", keyFileVariable: 'keyfile')]) {
+                        sh 'scp -i ${keyfile} -o StrictHostKeyChecking=no /home/ubuntu/workspace/clone_build_deploy/target/*.war ubuntu@172.31.44.188:/opt'
+
+                              }
+                      }
+                      }
+   
+                      
+                      stage('Docker Stack Deploy'){
+                      agent { label 'Docker_Manager' }
+                         steps{
+                                sh 'sudo docker stack deploy -c /opt/docker-service.yml stage'
+                                
+                              }
+                      }
+                      		
+                     }
+           }
