@@ -4,7 +4,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="home">
-    <h2><fmt:message key="Welcome Vova from WebHook, Image has been built!!!!"/></h2>
+    <h2><fmt:message key="Welcome Vova from WebHook, Image has been built (version newer)!!!!"/></h2>
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
