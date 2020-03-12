@@ -12,7 +12,8 @@
     <url>https://github.com/spring-petclinic/</url>
 
     <properties>
-
+        
+        <skipTests>true</skipTests>
         <!-- Generic properties -->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
